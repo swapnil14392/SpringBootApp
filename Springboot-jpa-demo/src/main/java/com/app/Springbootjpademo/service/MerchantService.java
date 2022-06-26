@@ -12,6 +12,7 @@ import com.app.Springbootjpademo.dto.MerchantDto;
 import com.app.Springbootjpademo.entity.MerchantDetails;
 import com.app.Springbootjpademo.exception.DataNotFoundException;
 import com.app.Springbootjpademo.repository.MerchantDetailsRepo;
+import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -21,11 +22,11 @@ public class MerchantService {
 	private MerchantDetailsRepo detailsRepo;
 	
 	@Transactional
-	public MerchantDetails saveMerchant(MerchantDto merchantDetails) {
+	public MerchantDetails saveMerchant(MerchantDetails merchantDetails) {
 		
-		MerchantDetails dt=new MerchantDetails();
+	//	MerchantDetails dt=new MerchantDetails();
 		
-		return detailsRepo.save(dt.convertToDto(merchantDetails));
+		return detailsRepo.save(merchantDetails);
 		
 		
 	}
@@ -65,7 +66,14 @@ public class MerchantService {
 	}
 		
 	}
-	
+	@Transactional(readOnly = true)
+	public Optional<MerchantDetails> fetchByEntityGraph(Long id){
+		return detailsRepo.findByAppNo(id);
+	}
+	@Transactional(readOnly = true)
+	public Optional<MerchantDetails> fetchById(Long id){
+		return detailsRepo.findById(id);
+	}
 	public void testAOP(String name) {
 		System.out.println(" call service aop.."+name);
 	}

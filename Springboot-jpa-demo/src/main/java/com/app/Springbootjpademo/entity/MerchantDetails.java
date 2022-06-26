@@ -9,6 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -32,13 +35,19 @@ import lombok.ToString.Exclude;
 @AllArgsConstructor
 @Entity
 @Table(name = "MERCHANT_DETAILS")
+
+@NamedEntityGraph(name = "address.withAllDetails",attributeNodes = {
+		@NamedAttributeNode(value = "meAddress",subgraph = "withAddress")
+		},
+subgraphs = {@NamedSubgraph(name="withAddress", attributeNodes =  @NamedAttributeNode ("mid"))}
+)
 public class MerchantDetails extends CommonColumn {
 	@Id
 	@GeneratedValue(generator = "tblGenerator",strategy = GenerationType.TABLE)
 	@TableGenerator(name = "tblGenerator")
 	@Column(name = "APP_NO", length = 10)
 	private Long appNo;
-	@Column(name = "ME_NAME", length = 30)
+	@Column(name = "ME_NAME", length = 30,unique = true)
 	private String merchantName;
 	@Column(name = "MOB_NO", length = 15)
 	private String mobileNo;
@@ -48,7 +57,7 @@ public class MerchantDetails extends CommonColumn {
 	private String panNo;
 	@JsonManagedReference
 	@Exclude
-	@OneToMany(mappedBy = "mid",cascade = CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(mappedBy = "mid",cascade = CascadeType.ALL,orphanRemoval=true,fetch = FetchType.LAZY)
 	private List<MeAddress> meAddress;
 
 	public MerchantDetails convertToDto(MerchantDto dto) {

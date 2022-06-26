@@ -32,7 +32,7 @@ public class MerchantTestCtrl {
 	
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@PostMapping("/store")
-public ResponseObj saveMerchant(@Valid @RequestBody MerchantDto dto) {
+public ResponseObj saveMerchant(@Valid @RequestBody MerchantDetails dto) {
 	
 	MerchantDetails dt= service.saveMerchant(dto); 
 	 responseObj.add("save",dt);
@@ -50,6 +50,14 @@ public ResponseObj saveMerchant(@Valid @RequestBody MerchantDto dto) {
 	@GetMapping("byname/{name}/{id}")
 	public Optional<MerchantDetails> fetchMerchantByNameAndAppNo(@PathVariable String name,@PathVariable Long id){
 	return	service.fetchMerchantByNameAndAppNo(name,id);
+	}
+	@GetMapping("entity/{id}")
+	public Optional<MerchantDetails> fetchByEntityGraph(@PathVariable Long id){
+		return service.fetchByEntityGraph(id);
+	}
+	@GetMapping("id/{id}")
+	public Optional<MerchantDetails> fetchById(@PathVariable Long id){
+		return service.fetchById(id);
 	}
 	
 	@PatchMapping("patch/{id}")
