@@ -19,5 +19,12 @@ public class CommonColumn {
 	private LocalDate updatedOn;
 	@Column(name = "UPDATED_BY")
 	private String updatedBy;
+	
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = "SwapnilR";
+	}
 
+	
+	
+	
 }
