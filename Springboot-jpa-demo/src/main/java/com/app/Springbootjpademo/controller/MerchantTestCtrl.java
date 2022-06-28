@@ -1,5 +1,6 @@
 package com.app.Springbootjpademo.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -22,7 +23,9 @@ import com.app.Springbootjpademo.dto.MerchantDto;
 import com.app.Springbootjpademo.entity.MerchantDetails;
 import com.app.Springbootjpademo.service.MerchantService;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 public class MerchantTestCtrl {
 	@Autowired
@@ -74,5 +77,32 @@ public ResponseObj saveMerchant(@Valid @RequestBody MerchantDetails dto) {
 	public void testAOP(@PathVariable String name) {
 		service.testAOP(name);
 	}
+	@GetMapping("allbyQuery")
+	public List<MerchantDetails>fetchAllMerchantsByQuery(){
+		return service.fetchAllMerchantsByQuery();
+	}
+	@GetMapping("byQuery/{id}")
+	public Optional<MerchantDetails>fetchMerchantsByQuery(@PathVariable Long id){
+	log.info("initiate query request for id:{}", id);
+		return service.fetchMerchantsByQuery(id);
+	}
+	@GetMapping("byQueryParam/{id}")
+	public Optional<MerchantDetails>fetchMerchantsByQueryNamedParam(@PathVariable Long id){
+	log.info("initiate query request for id:{}", id);
+		return service.fetchMerchantsByQueryNamedParam(id);
+	}
+	@GetMapping("byNamedQuery/{id}")
+	public Optional<MerchantDetails>fetchMerchantByNamedQuery(@PathVariable Long id){
+	log.debug("initiate query request for id:{}", id);
+		return service.fetchMerchantByNamedQuery(id);
+	}
 	
+	@GetMapping("byNameCity/{name}/{city}")
+	public Optional<MerchantDetails>fetchByNameAndCity(@PathVariable String name,@PathVariable String  city){
+		return service.fetchByNameAndCity(name,city);
+	}
+	@GetMapping("byNativeQuery/{email}")
+	public List<MerchantDetails>fetchByNativeQuery(@PathVariable String email){
+		return service.fetchByNativeQuery(email);
+	}
 }

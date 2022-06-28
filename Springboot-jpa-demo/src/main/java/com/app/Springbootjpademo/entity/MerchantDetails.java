@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -41,6 +43,8 @@ import lombok.ToString.Exclude;
 		},
 subgraphs = {@NamedSubgraph(name="withAddress", attributeNodes =  @NamedAttributeNode ("mid"))}
 )
+
+@NamedQuery(name = "MerchantDetails.merchantsByNamesQuery",query ="SELECT M FROM MerchantDetails M WHERE M.appNo=?1" )
 public class MerchantDetails extends CommonColumn {
 	@Id
 	@GeneratedValue(generator = "tblGenerator",strategy = GenerationType.TABLE)

@@ -1,5 +1,6 @@
 package com.app.Springbootjpademo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.Springbootjpademo.dto.MerchantDto;
 import com.app.Springbootjpademo.entity.MerchantDetails;
 import com.app.Springbootjpademo.exception.DataNotFoundException;
 import com.app.Springbootjpademo.repository.MerchantDetailsRepo;
-import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -77,8 +76,35 @@ public class MerchantService {
 	public void testAOP(String name) {
 		System.out.println(" call service aop.."+name);
 	}
-
+	@Transactional(readOnly = true)
+	public List<MerchantDetails>fetchAllMerchantsByQuery(){
+		return detailsRepo.fetchAllMerchantsByQuery();
+	}
+	@Transactional(readOnly = true)
+	public List<MerchantDetails>fetchbyNameAndCity(){
+		return detailsRepo.fetchAllMerchantsByQuery();
+	}
 	
+	@Transactional(readOnly = true)
+	public Optional<MerchantDetails>fetchMerchantsByQuery(Long id){
+		return detailsRepo.fetchMerchantsByQuery(id);
+	}
+	@Transactional(readOnly = true)
+	public Optional<MerchantDetails>fetchMerchantsByQueryNamedParam(Long id){
+		return detailsRepo.fetchMerchantsByQueryNamedParam(id);
+	}
 	
+	@Transactional(readOnly = true)
+	public Optional<MerchantDetails>fetchMerchantByNamedQuery(Long id){
+		return detailsRepo.merchantsByNamesQuery(id);
+	}
 	
+	@Transactional(readOnly = true)
+	public Optional<MerchantDetails>fetchByNameAndCity(String name,String city){
+		return detailsRepo.findByMerchantNameAndMeAddressCity(name,city);
+	}
+	@Transactional(readOnly = true)
+	public List<MerchantDetails>fetchByNativeQuery(String email){
+		return detailsRepo.findByEmailId(email);
+	}
 }
