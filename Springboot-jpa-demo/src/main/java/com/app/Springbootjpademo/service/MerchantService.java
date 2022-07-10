@@ -9,9 +9,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.Springbootjpademo.common.ResponseObj;
 import com.app.Springbootjpademo.entity.MerchantDetails;
+import com.app.Springbootjpademo.entity.UserMaster;
 import com.app.Springbootjpademo.exception.DataNotFoundException;
 import com.app.Springbootjpademo.repository.MerchantDetailsRepo;
+import com.app.Springbootjpademo.repository.UserMasterRepo;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -19,6 +22,10 @@ import lombok.extern.slf4j.Slf4j;
 public class MerchantService {
 	@Autowired
 	private MerchantDetailsRepo detailsRepo;
+	@Autowired
+	private UserMasterRepo userMasterRepo;
+	@Autowired
+	private ResponseObj obj;
 	
 	@Transactional
 	public MerchantDetails saveMerchant(MerchantDetails merchantDetails) {
@@ -106,5 +113,10 @@ public class MerchantService {
 	@Transactional(readOnly = true)
 	public List<MerchantDetails>fetchByNativeQuery(String email){
 		return detailsRepo.findByEmailId(email);
+	}
+	
+	@Transactional(readOnly = true)
+	public void fetchUserDetails() {
+	System.out.println("*****************");
 	}
 }
