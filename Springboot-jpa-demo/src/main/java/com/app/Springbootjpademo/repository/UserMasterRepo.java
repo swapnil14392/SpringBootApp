@@ -12,4 +12,7 @@ import com.app.Springbootjpademo.entity.UserMaster;
 public interface UserMasterRepo extends CrudRepository<UserMaster, Long> {
 	@QueryHints({@QueryHint(name=org.hibernate.annotations.QueryHints.CACHEABLE,value = "true")})
 	List<UserMaster> findByUserNameOrderBySrNo(String username);
+	
+	@QueryHints({@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE,value = "true")})
+	List<UserMaster> findAllByOrderBySrNo();
 }

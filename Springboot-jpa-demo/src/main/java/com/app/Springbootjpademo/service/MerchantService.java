@@ -116,7 +116,8 @@ public class MerchantService {
 	}
 	
 	@Transactional(readOnly = true)
-	public void fetchUserDetails() {
+	public List<UserMaster> fetchUserDetails() {
 	System.out.println("*****************");
+	return userMasterRepo.findAllByOrderBySrNo();
 	}
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.Springbootjpademo.common.ResponseObj;
 import com.app.Springbootjpademo.entity.MerchantDetails;
+import com.app.Springbootjpademo.entity.UserMaster;
 import com.app.Springbootjpademo.service.MerchantService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -103,5 +104,9 @@ public ResponseObj saveMerchant(@Valid @RequestBody MerchantDetails dto) {
 	@GetMapping("byNativeQuery/{email}")
 	public List<MerchantDetails>fetchByNativeQuery(@PathVariable String email){
 		return service.fetchByNativeQuery(email);
+	}
+	@GetMapping("users")
+	public List<UserMaster> fetchAllUsers(){
+		return service.fetchUserDetails();
 	}
 }
