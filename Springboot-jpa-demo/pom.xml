@@ -117,7 +117,14 @@
 		    <groupId>org.ehcache</groupId>
 		    <artifactId>ehcache</artifactId>
 		    
-		</dependency>     
+		</dependency> 
+		<!-- swagger -->  
+	<dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>1.6.9</version>
+   </dependency>
+			 
 	</dependencies>
 
 	<build>
