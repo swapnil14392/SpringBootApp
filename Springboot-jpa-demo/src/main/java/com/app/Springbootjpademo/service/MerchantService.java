@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,12 +36,12 @@ public class MerchantService {
 		return detailsRepo.findAll(page);
 	}
 	@Transactional(readOnly = true)
-	public Optional<MerchantDetails> fetchMerchantByName(String name) {
+	public ResponseEntity<MerchantDetails> fetchMerchantByName(String name) {
 		Optional<MerchantDetails> merch=detailsRepo.findByMerchantName(name);
-		if(!merch.isPresent()) {
-			System.out.println("data not found");
-		}
-		return merch;
+		
+		  if(!merch.isPresent()) { System.out.println("data not found"); }
+		 
+		return new ResponseEntity(merch, HttpStatus.CREATED);
 	}
 	@Transactional(readOnly = true)
 	public Optional<MerchantDetails> fetchMerchantByNameAndAppNo(String name, Long id) {

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -46,10 +47,10 @@ public ResponseObj saveMerchant(@Valid @RequestBody MerchantDetails dto) {
 		return service.fetchAllMerchants(page);
 	}
 	@GetMapping("byname/{name}")
-	public Optional<MerchantDetails> fetchMerchantByName(@PathVariable String name){
+	public ResponseEntity<MerchantDetails> fetchMerchantByName(@PathVariable String name){
 	return	service.fetchMerchantByName(name);
 	}
-	
+	@ResponseStatus(code = HttpStatus.OK)
 	@GetMapping("byname/{name}/{id}")
 	public Optional<MerchantDetails> fetchMerchantByNameAndAppNo(@PathVariable String name,@PathVariable Long id){
 	return	service.fetchMerchantByNameAndAppNo(name,id);
