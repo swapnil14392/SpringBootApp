@@ -2,8 +2,8 @@ package com.app.Springbootjpademo.entity;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
