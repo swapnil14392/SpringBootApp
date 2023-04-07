@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.Springbootjpademo.common.ResponseObj;
+import com.app.Springbootjpademo.dto.MerchantDto;
 import com.app.Springbootjpademo.entity.MerchantDetails;
 import com.app.Springbootjpademo.entity.UserMaster;
 import com.app.Springbootjpademo.service.MerchantService;
@@ -102,11 +103,18 @@ public ResponseObj saveMerchant(@Valid @RequestBody MerchantDetails dto) {
 		return service.fetchByNameAndCity(name,city);
 	}
 	@GetMapping("byNativeQuery/{email}")
-	public List<MerchantDetails>fetchByNativeQuery(@PathVariable String email){
+	public List<MerchantDto>fetchByNativeQuery(@PathVariable String email){
 		return service.fetchByNativeQuery(email);
 	}
 	@GetMapping("users")
 	public List<UserMaster> fetchAllUsers(){
 		return service.fetchUserDetails();
 	}
+	
+	
+	@GetMapping("mapperid/{id}")
+	public MerchantDto fetchByMapperId(@PathVariable Long id) {
+		return service.fetchByMapperId(id);
+	}
+	 
 }

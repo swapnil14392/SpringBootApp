@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.Springbootjpademo.common.ResponseObj;
+import com.app.Springbootjpademo.dto.MerchantDto;
 import com.app.Springbootjpademo.entity.MerchantDetails;
 import com.app.Springbootjpademo.entity.UserMaster;
 import com.app.Springbootjpademo.exception.DataNotFoundException;
+import com.app.Springbootjpademo.mapper.MerchantMapper;
 import com.app.Springbootjpademo.repository.MerchantDetailsRepo;
 import com.app.Springbootjpademo.repository.UserMasterRepo;
 
@@ -26,6 +28,10 @@ public class MerchantService {
 	private UserMasterRepo userMasterRepo;
 	@Autowired
 	private ResponseObj obj;
+	
+	@Autowired
+	MerchantMapper mapper;
+
 	
 	@Transactional
 	public MerchantDetails saveMerchant(MerchantDetails merchantDetails) {
@@ -111,13 +117,20 @@ public class MerchantService {
 		return detailsRepo.findByMerchantNameAndMeAddressCity(name,city);
 	}
 	@Transactional(readOnly = true)
-	public List<MerchantDetails>fetchByNativeQuery(String email){
-		return detailsRepo.findByEmailId(email);
+	public List<MerchantDto>fetchByNativeQuery(String email){
+		return mapper.convertToDtoList(detailsRepo.findByEmailId(email));
 	}
 	
 	@Transactional(readOnly = true)
 	public List<UserMaster> fetchUserDetails() {
 	System.out.println("*****************");
 	return userMasterRepo.findAllByOrderBySrNo();
+	}
+	
+	@Transactional(readOnly = true)
+	public MerchantDto fetchByMapperId(Long id) {
+		MerchantDetails dt= detailsRepo.findById(id).get();
+		return mapper.convertToDto(dt);
+		
 	}
 }
