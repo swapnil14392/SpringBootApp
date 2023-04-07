@@ -1,5 +1,6 @@
 package com.app.Springbootjpademo.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
@@ -24,4 +25,6 @@ public class MerchantDto {
 	private String emailId;
 	private String panNo;
 	private List<MeAddress> meAddress;
+	private LocalDate updatedOn;
+	private String updatedBy;
 }

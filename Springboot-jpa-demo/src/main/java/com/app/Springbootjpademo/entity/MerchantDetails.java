@@ -64,14 +64,5 @@ public class MerchantDetails extends CommonColumn {
 	@OneToMany(mappedBy = "mid",cascade = CascadeType.ALL,orphanRemoval=true,fetch = FetchType.LAZY)
 	private List<MeAddress> meAddress;
 
-	public MerchantDetails convertToDto(MerchantDto dto) {
-	MerchantDetails d=new MerchantDetails();
-	d.setMerchantName(dto.getMerchantName());
-	d.setMeAddress(dto.getMeAddress());
-	d.setMobileNo(dto.getMobileNo());
-	d.setEmailId(dto.getEmailId());
-	return d;
 	
-	
-	}
 }
