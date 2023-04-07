@@ -3,8 +3,6 @@ package com.app.Springbootjpademo.controller;
 import java.util.List;
 import java.util.Optional;
 
-import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +22,7 @@ import com.app.Springbootjpademo.entity.MerchantDetails;
 import com.app.Springbootjpademo.entity.UserMaster;
 import com.app.Springbootjpademo.service.MerchantService;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -115,6 +114,11 @@ public ResponseObj saveMerchant(@Valid @RequestBody MerchantDetails dto) {
 	@GetMapping("mapperid/{id}")
 	public MerchantDto fetchByMapperId(@PathVariable Long id) {
 		return service.fetchByMapperId(id);
+	}
+	
+	@GetMapping("byInParam")
+	public List<MerchantDto> fetchDetailsOnMultipleName(){
+		return service.fetchDetailsOnMultipleName();	
 	}
 	 
 }

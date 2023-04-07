@@ -50,5 +50,7 @@ public interface MerchantDetailsRepo extends JpaRepository<MerchantDetails, Long
 			 nativeQuery = true )
 	List<MerchantDetails> findByEmailId(String email); 
 	
+	List<MerchantDetails>findByMerchantNameIgnoreCaseIn(List name);
+	
 	
 }
