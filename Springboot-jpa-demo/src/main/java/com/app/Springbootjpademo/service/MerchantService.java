@@ -133,4 +133,13 @@ public class MerchantService {
 		return mapper.convertToDto(dt);
 		
 	}
+	
+	@Transactional(readOnly = true)
+	public List<MerchantDto> fetchDetailsOnMultipleName() {
+		
+		List<MerchantDetails> dt= detailsRepo.findByMerchantNameIgnoreCaseIn(List.of("Swap", "Swapnil"));
+		return mapper.convertToDtoList(dt);
+		
+	}
+	
 }
